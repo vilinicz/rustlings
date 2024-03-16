@@ -98,7 +98,6 @@ pub mod clippy1;
 pub mod clippy3;
 #[path="22_clippy/clippy2.rs"]
 pub mod clippy2;
-pub mod exercises;
 #[path="18_iterators/iterators2.rs"]
 pub mod iterators2;
 #[path="18_iterators/iterators3.rs"]

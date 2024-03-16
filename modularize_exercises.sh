@@ -1,20 +1,19 @@
 #!/bin/bash
 
-# Empty the file
-> exercises/exercises.rs
+# Recreate the file
+echo '// This file was auto-generated with ../modularize_exercises.sh script' > exercises/exercises.rs
 
-echo '// This file was auto-generated with ../modularize_exercises.sh script' >> exercises/exercises.rs
-# Loop over all .rs files in the exercises directory
-for file in $(find ./exercises -type f -name "*.rs"); do
+# Loop through all the files in the exercises directory and add them to the exercises.rs file
+find ./exercises -type f -name "*.rs" ! -name "exercises.rs" | while read -r file; do
     # Remove the 'exercises/' prefix from the file path
     path=${file#./exercises/}
 
-    # Write the path and module name to the file only if $path variable is present and contains a '/'
+    # Write the module path only if the file is in a subdirectory
     if [[ -n "$path" && "$path" == */* ]]; then
         echo "#[path=\"$path\"]" >> exercises/exercises.rs
     fi
-
-    echo "pub mod $(basename $file .rs);" >> exercises/exercises.rs
+    # Write the module name to the file
+    echo "pub mod $(basename "$file" .rs);" >> exercises/exercises.rs
 done
 
 echo 'Done'
