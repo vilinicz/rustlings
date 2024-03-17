@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Recreate the file
-echo '// This file was auto-generated with ../modularize_exercises.sh script' > exercises/exercises.rs
+# Clear the file
+truncate -s 0 exercises/exercises.rs
+
+# Write the initial line to the file
+echo '// This file was auto-generated with ../modularize_exercises.sh script' >> exercises/exercises.rs
 
 # Loop through all the files in the exercises directory and add them to the exercises.rs file
 find ./exercises -type f -name "*.rs" ! -name "exercises.rs" -print0 | sort -z | while IFS= read -r -d '' file; do
