@@ -4,7 +4,7 @@
 echo '// This file was auto-generated with ../modularize_exercises.sh script' > exercises/exercises.rs
 
 # Loop through all the files in the exercises directory and add them to the exercises.rs file
-find ./exercises -type f -name "*.rs" ! -name "exercises.rs" | while read -r file; do
+find ./exercises -type f -name "*.rs" ! -name "exercises.rs" -print0 | sort -z | while IFS= read -r -d '' file; do
     # Remove the 'exercises/' prefix from the file path
     path=${file#./exercises/}
 
